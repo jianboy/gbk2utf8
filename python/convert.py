@@ -1,4 +1,3 @@
-# Python3 将GBK转换成utf-8编码，明天继续实现，把*.java文件 *.porperties文件都转成utf-8
 import os
 import chardet
 import codecs
@@ -15,9 +14,9 @@ def GBK_2_UTF8(src, dst):
     coding = chardet.detect(f.read())["encoding"]
     f.close()
     if coding != "utf-8":
-        with codecs.open(src, "r", encoding) as f:
+        with codecs.open(src, "r", coding) as f:
             try:
-                WriteFile(dst, f.read(), coding="utf-8")
+                WriteFile(dst, f.read(), encoding="utf-8")
                 try:
                     print(src + "  " + coding + " to utf-8  converted!")
                 except Exception:
@@ -37,5 +36,5 @@ def ReadDirectoryFile(rootdir):
                            os.path.join(parent, filename))
 
 if __name__ == "__main__":
-    src_path = "D:/liuyuqi/twtech/github/q 前端/java-note/src"
+    src_path = "E:/data/workspace/dic"
     ReadDirectoryFile(src_path)
