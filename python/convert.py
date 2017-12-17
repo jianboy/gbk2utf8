@@ -10,7 +10,7 @@ def WriteFile(filePath, u, encoding="utf-8"):
 
 
 def GBK_2_UTF8(src, dst):
-    #     检测编码
+    #     检测编码，coding可能检测不到编码，有异常
     f = open(src, "rb")
     coding = chardet.detect(f.read())["encoding"]
     f.close()
@@ -25,20 +25,16 @@ def GBK_2_UTF8(src, dst):
             except Exception:
                 print(src +"  "+ coding+ "  read error")
 
-# 递归遍历rootdir目录，把目录中的*.java编码由gbk转换为utf-8
+# 把目录中的*.java编码由gbk转换为utf-8
 def ReadDirectoryFile(rootdir):
     for parent, dirnames, filenames in os.walk(rootdir):
-            # case 1:
         for dirname in dirnames:
-            #                     print("folder is:" + os.path.join(parent, dirname))
+          	#递归函数，遍历所有子文件夹
             ReadDirectoryFile(dirname)
-        # case 2
         for filename in filenames:
-            #                     print("filename with full path:" + os.path.join(parent, filename))
             if filename.endswith(".java"):
                 GBK_2_UTF8(os.path.join(parent, filename),
                            os.path.join(parent, filename))
-
 
 if __name__ == "__main__":
     src_path = "D:/liuyuqi/twtech/github/q 前端/java-note/src"
