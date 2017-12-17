@@ -4,18 +4,6 @@ import chardet
 import codecs
 
 
-def ReadFile(filePath, dst, encoding="gbk"):
-    with codecs.open(filePath, "r", encoding) as f:
-        try:
-            WriteFile(dst, f.read(), encoding="utf-8")
-            try:
-                print(filePath + "  " + encoding + " to utf-8  converted!")
-            except Exception:
-                print("print error")
-        except Exception:
-            print(filePath +"  "+ encoding+ "  read error")
-
-
 def WriteFile(filePath, u, encoding="utf-8"):
     with codecs.open(filePath, "w", encoding) as f:
         f.write(u)
@@ -27,8 +15,15 @@ def GBK_2_UTF8(src, dst):
     coding = chardet.detect(f.read())["encoding"]
     f.close()
     if coding != "utf-8":
-        ReadFile(src, dst, encoding=coding)
-
+        with codecs.open(src, "r", encoding) as f:
+            try:
+                WriteFile(dst, f.read(), coding="utf-8")
+                try:
+                    print(src + "  " + coding + " to utf-8  converted!")
+                except Exception:
+                    print("print error")
+            except Exception:
+                print(src +"  "+ coding+ "  read error")
 
 # 递归遍历rootdir目录，把目录中的*.java编码由gbk转换为utf-8
 def ReadDirectoryFile(rootdir):
