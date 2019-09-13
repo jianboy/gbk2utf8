@@ -8,7 +8,13 @@
 1. 配置项目文件夹
 python：pip install  os, chardet, codecs
 
-2. java执行 convert.java；php执行php convert.php; python执行python convert.py即可。
+2. 执行
+
+java执行 java —jar gbk2utf8.jar，或者 eclipse/idea 右键run即可；
+
+php执行 php convert.php; 
+
+python执行 python convert.py即可。
 
 ## 进度
 2017-12-17 python部分完成，对项目所有非utf-8编码的java文件全部转为utf-8编码。
